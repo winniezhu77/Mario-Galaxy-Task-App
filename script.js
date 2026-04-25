@@ -4,7 +4,7 @@ const companions = [
     id: "mario",
     name: "Mario",
     vibe: "Encouraging hero energy",
-    sprite: "mario-custom.png",
+    sprite: "./mario-custom.png",
     animation: "winJump",
     success: "Mario launches into a victory jump.",
     speech: "Let's-a go. One more mission."
