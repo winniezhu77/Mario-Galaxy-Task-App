@@ -1,0 +1,690 @@
+:root {
+  --red: #e52521;
+  --blue: #049cd8;
+  --yellow: #fbd000;
+  --green: #43b047;
+  --brown: #8b5a2b;
+  --cream: #f5e6c8;
+  --ink: #10182b;
+  --navy: #1d2a52;
+  --night: #080d1d;
+  --night-2: #101a37;
+  --white: #fff8dd;
+  --shadow: rgba(0, 0, 0, 0.28);
+  --pixel-border: 4px solid var(--ink);
+  --pixel-shadow: 0 6px 0 rgba(16, 24, 43, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  font-family: "VT323", monospace;
+  background:
+    radial-gradient(circle at top, rgba(251, 208, 0, 0.12), transparent 20%),
+    linear-gradient(180deg, var(--night-2) 0%, var(--night) 56%, #050811 100%);
+  color: var(--cream);
+}
+
+body.overworld {
+  background:
+    linear-gradient(180deg, #6cc8ff 0%, #7ee0ff 44%, #163e87 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.sky-layer,
+.sparkle-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.galaxy-decor {
+  z-index: 0;
+}
+
+.planet {
+  position: absolute;
+  display: block;
+  border: var(--pixel-border);
+  box-shadow: var(--pixel-shadow);
+  image-rendering: pixelated;
+  opacity: 0.95;
+}
+
+.planet::before,
+.planet::after {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+.planet-gold {
+  top: 130px;
+  left: 4%;
+  width: 96px;
+  height: 96px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #fbd000 0 12px,
+      #ffea73 12px 24px
+    );
+}
+
+.planet-gold::before {
+  inset: 20px;
+  border: 4px solid rgba(139, 90, 43, 0.8);
+}
+
+.planet-blue {
+  right: 7%;
+  top: 220px;
+  width: 140px;
+  height: 140px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #049cd8 0 14px,
+      #8ce7ff 14px 28px
+    );
+}
+
+.planet-blue::before {
+  left: -20px;
+  right: -20px;
+  top: 54px;
+  height: 24px;
+  background: #f5e6c8;
+  border-top: 4px solid var(--ink);
+  border-bottom: 4px solid var(--ink);
+}
+
+.planet-green {
+  bottom: 90px;
+  left: 9%;
+  width: 112px;
+  height: 112px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #43b047 0 14px,
+      #8ee676 14px 28px
+    );
+}
+
+.planet-green::before {
+  width: 28px;
+  height: 28px;
+  right: 16px;
+  top: 16px;
+  background: rgba(255, 248, 221, 0.32);
+}
+
+.stars-far {
+  background-image:
+    radial-gradient(circle, rgba(255, 248, 221, 0.8) 0 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 248, 221, 0.55) 0 1px, transparent 1px);
+  background-size: 72px 72px, 106px 106px;
+  background-position: 0 0, 30px 42px;
+  animation: driftFar 32s linear infinite;
+}
+
+.stars-near {
+  background-image:
+    radial-gradient(circle, rgba(251, 208, 0, 0.95) 0 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(4, 156, 216, 0.85) 0 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 248, 221, 0.85) 0 1px, transparent 1px);
+  background-size: 88px 88px, 132px 132px, 54px 54px;
+  background-position: 14px 24px, 42px 60px, 10px 12px;
+  animation: twinkle 4.2s steps(2) infinite;
+  opacity: 0.92;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+.pixel-panel,
+.task-note,
+.question-block,
+.pixel-button,
+input,
+select {
+  border: var(--pixel-border);
+  border-radius: 0;
+  box-shadow: var(--pixel-shadow);
+  image-rendering: pixelated;
+}
+
+.pixel-panel {
+  background: rgba(16, 24, 43, 0.92);
+  padding: 18px;
+}
+
+body.overworld .pixel-panel {
+  background: rgba(245, 230, 200, 0.92);
+  color: var(--ink);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.eyebrow,
+.message-label,
+.meter-header,
+.panel-heading p {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: "Press Start 2P", monospace;
+  line-height: 1.4;
+}
+
+h1 {
+  margin-top: 10px;
+  font-size: clamp(1rem, 2.4vw, 1.7rem);
+}
+
+h2 {
+  font-size: 0.95rem;
+}
+
+.topbar-tools,
+.control-row,
+.hero-row {
+  display: flex;
+  gap: 16px;
+}
+
+.hero-row {
+  margin-top: 18px;
+  align-items: stretch;
+}
+
+.mission-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 760px;
+}
+
+.message-card {
+  padding: 16px;
+  background:
+    linear-gradient(180deg, rgba(4, 156, 216, 0.18), rgba(251, 208, 0, 0.08)),
+    rgba(8, 13, 29, 0.9);
+  border: 4px solid var(--blue);
+}
+
+body.overworld .message-card {
+  background: rgba(255, 248, 221, 0.9);
+}
+
+.motivation-text {
+  margin: 14px 0 0;
+  font-size: clamp(1.35rem, 2.8vw, 2rem);
+  line-height: 1.1;
+}
+
+.control-row {
+  margin-top: 16px;
+  align-items: center;
+}
+
+.mission-heading {
+  margin-top: 18px;
+}
+
+.companions-inline {
+  margin-top: 18px;
+}
+
+.question-block {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(180deg, #ffe57f 0%, #fbd000 100%);
+  color: var(--brown);
+  cursor: pointer;
+  transition: transform 120ms steps(2), filter 120ms steps(2);
+}
+
+.question-block span {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.7rem;
+}
+
+.question-block:hover,
+.pixel-button:hover,
+.task-note:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.08);
+}
+
+.question-block:active,
+.pixel-button:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(16, 24, 43, 0.95);
+}
+
+.meter-wrap {
+  flex: 1;
+}
+
+.meter-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.level-meter {
+  height: 24px;
+  background: #263258;
+  border: var(--pixel-border);
+  overflow: hidden;
+}
+
+.level-meter-fill {
+  width: 0;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--green) 0 12px,
+      #8ee676 12px 24px
+    );
+  transition: width 180ms steps(6);
+}
+
+.lead-display {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-height: 220px;
+  margin-top: 16px;
+  padding: 16px;
+  border: var(--pixel-border);
+  background:
+    linear-gradient(180deg, rgba(4, 156, 216, 0.16), rgba(251, 208, 0, 0.06)),
+    rgba(8, 13, 29, 0.84);
+}
+
+body.overworld .lead-display {
+  background: rgba(255, 248, 221, 0.92);
+}
+
+.lead-sprite-stage {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  border: 4px solid var(--ink);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(4, 156, 216, 0.24) 0 12px,
+      rgba(4, 156, 216, 0.12) 12px 24px
+    );
+}
+
+body.overworld .lead-sprite-stage {
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(251, 208, 0, 0.22) 0 12px,
+      rgba(255, 248, 221, 0.72) 12px 24px
+    );
+}
+
+.lead-sprite {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  object-position: center center;
+  justify-self: center;
+  align-self: center;
+  image-rendering: pixelated;
+  animation: bob 2s steps(2) infinite;
+}
+
+.lead-text {
+  min-width: 0;
+}
+
+.lead-label {
+  margin: 0 0 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.lead-name {
+  margin: 0 0 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.lead-vibe,
+.lead-speech {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  line-height: 1.05;
+}
+
+.lead-speech {
+  margin-bottom: 0;
+  color: var(--yellow);
+}
+
+body.overworld .lead-speech {
+  color: var(--red);
+}
+
+.lead-display .lead-sprite {
+  animation-duration: 1.4s;
+}
+
+.task-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 180px) minmax(130px, 160px) minmax(130px, 170px);
+  gap: 12px;
+  margin: 16px 0 18px;
+  align-items: stretch;
+}
+
+.task-form > * {
+  min-width: 0;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: 4px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.pixel-button {
+  min-height: 52px;
+  padding: 0 16px;
+  background: var(--red);
+  color: var(--white);
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.7rem;
+  transition: transform 120ms steps(2), filter 120ms steps(2);
+}
+
+.pixel-button.alt {
+  background: var(--blue);
+}
+
+.pixel-button.danger {
+  background: var(--brown);
+}
+
+.task-board {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+  border: var(--pixel-border);
+  background:
+    linear-gradient(transparent 95%, rgba(255, 255, 255, 0.05) 95%) 0 0 / 100% 40px,
+    linear-gradient(90deg, transparent 95%, rgba(255, 255, 255, 0.05) 95%) 0 0 / 40px 100%,
+    rgba(4, 9, 20, 0.8);
+  overflow: hidden;
+}
+
+.empty-state {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 1.35rem;
+}
+
+.task-note {
+  position: absolute;
+  width: 220px;
+  min-height: 150px;
+  padding: 12px;
+  background: var(--cream);
+  color: var(--ink);
+  cursor: grab;
+  transition: transform 120ms steps(2), opacity 160ms steps(3);
+}
+
+.task-note.dragging {
+  cursor: grabbing;
+  z-index: 8;
+  transform: scale(1.04);
+}
+
+.task-note.complete-burst {
+  animation: blockHit 360ms steps(4) forwards;
+}
+
+.task-note-header,
+.task-note-footer,
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-text {
+  min-height: 56px;
+  margin: 16px 0;
+  font-size: 1.55rem;
+  line-height: 1.05;
+  word-break: break-word;
+}
+
+.priority-badge,
+.icon-button {
+  border: 4px solid var(--ink);
+}
+
+.priority-badge {
+  padding: 4px 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.45rem;
+  text-transform: uppercase;
+}
+
+.priority-badge.high {
+  background: var(--yellow);
+}
+
+.priority-badge.normal {
+  background: #ff8b60;
+}
+
+.priority-badge.low {
+  background: #8ee676;
+}
+
+.icon-button {
+  background: var(--blue);
+  color: var(--white);
+  cursor: pointer;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.45rem;
+}
+
+.complete-button {
+  width: 100%;
+  background: var(--green);
+}
+
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--yellow);
+  border: 2px solid var(--white);
+  animation: sparklePop 500ms steps(4) forwards;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes driftFar {
+  from { transform: translateY(0); }
+  to { transform: translateY(72px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes sparklePop {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+@keyframes blockHit {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  30% { transform: translateY(-14px) scale(1.05); }
+  100% { transform: translateY(-32px) scale(0.25); opacity: 0; }
+}
+
+@keyframes winJump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes shyHop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glowRise {
+  0%, 100% { transform: translateY(0); filter: brightness(1); }
+  50% { transform: translateY(-12px); filter: brightness(1.3); }
+}
+
+@keyframes spinClap {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg) scale(1.06); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (max-width: 960px) {
+  .hero-row,
+  .topbar {
+    flex-direction: column;
+  }
+
+  .lead-display {
+    grid-template-columns: 1fr;
+  }
+
+  .task-form {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar-tools,
+  .control-row {
+    width: 100%;
+  }
+
+  .topbar-tools .pixel-button,
+  .control-row .pixel-button {
+    flex: 1;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 18px, 100%);
+    padding-top: 14px;
+  }
+
+  .pixel-panel {
+    padding: 14px;
+  }
+
+  .control-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lead-display {
+    min-height: 0;
+    gap: 14px;
+  }
+
+  .lead-sprite {
+    width: 112px;
+    height: 112px;
+  }
+
+  .question-block {
+    width: 100%;
+    height: 64px;
+  }
+
+  .task-note {
+    width: 190px;
+  }
+}

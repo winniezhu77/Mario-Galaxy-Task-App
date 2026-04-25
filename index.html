@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxy Missions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="sky-layer stars-far"></div>
+  <div class="sky-layer stars-near"></div>
+  <div class="sky-layer galaxy-decor" aria-hidden="true">
+    <span class="planet planet-gold"></span>
+    <span class="planet planet-blue"></span>
+    <span class="planet planet-green"></span>
+  </div>
+  <div class="sparkle-field" id="sparkleField" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <header class="topbar pixel-panel">
+      <div>
+        <p class="eyebrow">Galaxy Task Station</p>
+        <h1 id="todayLabel">Today's Missions</h1>
+      </div>
+      <div class="topbar-tools">
+        <button id="themeToggle" class="pixel-button alt" type="button">Galaxy Mode</button>
+        <button id="soundToggle" class="pixel-button alt" type="button">Sound: Off</button>
+      </div>
+    </header>
+
+    <section class="hero-row">
+      <div class="mission-panel pixel-panel">
+        <div class="message-card">
+          <p class="message-label">Power-Up Message</p>
+          <p id="motivationText" class="motivation-text"></p>
+        </div>
+
+        <div class="control-row">
+          <button id="addTaskButton" class="question-block" type="button" aria-label="Add task">
+            <span>?</span>
+          </button>
+          <div class="meter-wrap">
+            <div class="meter-header">
+              <span>Level Meter</span>
+              <span id="progressText">0 / 0</span>
+            </div>
+            <div class="level-meter">
+              <div id="progressFill" class="level-meter-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="companions-inline">
+          <div class="panel-heading">
+            <h2>Lead Star Traveler</h2>
+            <p>Mario is leading this mission run.</p>
+          </div>
+          <div id="leadCompanionDisplay" class="lead-display" aria-live="polite"></div>
+        </div>
+
+        <div class="panel-heading mission-heading">
+          <h2>Mission Board</h2>
+          <p>Drag notes around. Clear goals like worlds.</p>
+        </div>
+        <form id="taskForm" class="task-form" autocomplete="off">
+          <label class="sr-only" for="taskInput">Task title</label>
+          <input id="taskInput" name="task" maxlength="80" placeholder="Add a new mission..." required>
+          <label class="sr-only" for="prioritySelect">Priority</label>
+          <select id="prioritySelect" name="priority">
+            <option value="normal">Coin Priority</option>
+            <option value="high">Star Priority</option>
+            <option value="low">Mushroom Priority</option>
+          </select>
+          <button class="pixel-button" type="submit">Add Task</button>
+          <button id="clearTasksButton" class="pixel-button danger" type="button">Clear Tasks</button>
+        </form>
+
+        <div id="taskBoard" class="task-board" aria-live="polite"></div>
+        <p id="emptyState" class="empty-state">No missions yet. Hit the question block to begin.</p>
+      </div>
+    </section>
+  </main>
+
+  <template id="taskTemplate">
+    <article class="task-note" draggable="false">
+      <div class="task-note-header">
+        <span class="priority-badge"></span>
+        <div class="task-actions">
+          <button class="icon-button edit-button" type="button" aria-label="Edit task">Edit</button>
+          <button class="icon-button delete-button" type="button" aria-label="Delete task">Del</button>
+        </div>
+      </div>
+      <p class="task-text"></p>
+      <div class="task-note-footer">
+        <button class="pixel-button complete-button" type="button">Clear Level</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
